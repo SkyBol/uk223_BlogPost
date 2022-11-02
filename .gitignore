@@ -25,6 +25,7 @@ hs_err_pid*
 backend/.idea/
 backend/build/
 backend/.gradle/
+backend/gradle/
 backend/gradlew
 backend/gradlew.bat
 
@@ -32,6 +33,7 @@ backend/gradlew.bat
 frontend/node_modules
 frontend/package-lock.json
 frontend/yarn.lock
+frontend/.eslintcache
 
 
 
