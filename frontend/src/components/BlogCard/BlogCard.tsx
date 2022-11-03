@@ -1,27 +1,26 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import AvatarTWO from '../Assets/isagiyoichi.png'
+import ShareIcon from '@mui/icons-material/Share';
+import Avatar from '@mui/material/Avatar';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Collapse from '@mui/material/Collapse';
+import { red } from '@mui/material/colors';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { User } from '../../types/models/User.model';
+import AvatarTWO from '../Assets/isagiyoichi.png';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
-type data = {id : string, title: string, text : string, author : User, date: Date}  
+type data = {id : string, title: string, text : string, author : User | null | undefined}  
 
   
 
@@ -37,7 +36,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function RecipeReviewCard({id, title , text , author, date }:data ) {
+export default function RecipeReviewCard({id, title , text , author }:data ) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -48,25 +47,26 @@ export default function RecipeReviewCard({id, title , text , author, date }:data
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar src={AvatarTWO}sx={{ bgcolor: red[500] }} aria-label="recipe">
-            
-          </Avatar>
+          <Avatar src={AvatarTWO}sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>
         }
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title={author.firstName + author.lastName}
-        subheader={date.toDateString()}
+        title={author ? author.firstName + author.lastName : "anonymous"}
       />
-      <CardMedia
+      {/*<CardMedia
         component="img"
         height="194"
         image={AvatarTWO}
         alt="Paella dish"
-      />
+      />*/}
       <CardContent>
+        <Typography variant="h6" color="text.secondary">
+           {title}
+           <hr />
+        </Typography>
         <Typography variant="body2" color="text.secondary">
            {text}
         </Typography>
