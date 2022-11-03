@@ -1,16 +1,11 @@
 import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import UserService from "../../Services/UserService";
+import { User } from '../../types/models/User.model';
 
-type User = {
-    map(arg0: (user: User) => JSX.Element): import("react").ReactNode;
-    firstName?: string,
-    lastName?: string,
-    email?: string
-};
 
 const UsersPage = () => {
-    const [users, setUsers] = useState<User>([]);
+    const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
         UserService.getAllUsers().then((res) => setUsers(res.data))

@@ -1,13 +1,8 @@
 import {  useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserService from "../../Services/UserService";
+import { User } from '../../types/models/User.model';
 
-
-type User = {
-    firstName: string,
-    lastName: string,
-    email: string
-};
 
 const UserPage = () => {
     const { userId } = useParams();
