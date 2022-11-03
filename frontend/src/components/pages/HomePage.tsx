@@ -1,10 +1,14 @@
-import React from 'react';
 import logo from '../../logo1.png';
+import BlogPostService from '../../Services/BlogPostService';
 import RecipeReviewCard from '../BlogCard/BlogCard';
 import ResponsiveAppBar from '../Header/ResponsiveAppBar';
 
 
 export default function HomePage() {
+  BlogPostService.getAllBlogPosts().then((res) => {
+    console.log(res); // ToDo: Remove
+  })
+
   return (
     <div>
     <ResponsiveAppBar/>
