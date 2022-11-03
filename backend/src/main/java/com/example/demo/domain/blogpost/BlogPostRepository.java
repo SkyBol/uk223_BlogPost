@@ -1,4 +1,8 @@
 package com.example.demo.domain.blogpost;
 
-public interface BlogPostRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.UUID;
+
+public interface BlogPostRepository extends CrudRepository<BlogPost, UUID> {
 }
