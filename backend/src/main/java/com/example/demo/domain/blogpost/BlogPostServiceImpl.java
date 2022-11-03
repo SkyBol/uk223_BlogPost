@@ -30,6 +30,13 @@ public class BlogPostServiceImpl implements BlogPostService {
         log.info("Successfully found All Entries");
         return foundItems;
     }
+    @Override
+    public List<BlogPost> getAllWithLimitAfterId(UUID blogId, long limit) {
+        log.info("Attempting to find Entries following Id {} with limit {}", blogId, limit);
+        List<BlogPost> foundItems = (List<BlogPost>) repository.findAll();
+        log.info("Successfully found Entries following Id {} with limit {}", blogId, limit);
+        return foundItems;
+    }
 
     @Override
     public BlogPost getById(UUID blogId) {

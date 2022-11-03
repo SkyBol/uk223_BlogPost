@@ -34,6 +34,11 @@ public class BlogPostController {
         return ResponseEntity.ok(service.getAll().stream().map(blogPostMapper::toDTO).toList());
     }
 
+    @GetMapping({"/{blogId}", ""})
+    public ResponseEntity<List<BlogPostDTO>> getAllWithLimitAfterId(@PathVariable("blogId") String blogId, @PathParam("limit") long limit) {
+        return ResponseEntity.ok(service.getAllWithLimitAfterId(UUID.fromString(blogId), limit).stream().map(blogPostMapper::toDTO).toList());
+    }
+
     @GetMapping("/{blogId}")
     public ResponseEntity<BlogPostDTO> getBlog(@PathVariable("blogId") String blogId) {
         return ResponseEntity.ok(blogPostMapper.toDTO(service.getById(UUID.fromString(blogId))));
