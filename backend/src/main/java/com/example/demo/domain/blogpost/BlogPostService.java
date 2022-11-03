@@ -1,15 +1,16 @@
 package com.example.demo.domain.blogpost;
 
-import java.util.Set;
+import java.util.List;
+import java.util.UUID;
 
 public interface BlogPostService {
     BlogPost create(BlogPost newEntity);
 
-    Set<BlogPost> getAll();
+    List<BlogPost> getAll();
 
-    BlogPost getById(String blogId);
+    BlogPost getById(UUID blogId);
 
-    BlogPost updateById(String blogId, BlogPost newEntity);
+    BlogPost updateById(UUID blogId, BlogPost newEntity);
 
-    void deleteById(String blogId);
+    void deleteById(UUID blogId);
 }

@@ -2,5 +2,7 @@ package com.example.demo.domain.blogpost;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface BlogPostRepository extends CrudRepository<BlogPost, String> {
+import java.util.UUID;
+
+public interface BlogPostRepository extends CrudRepository<BlogPost, UUID> {
 }

@@ -1,6 +1,7 @@
 package com.example.demo.domain.blogpost.dto;
 
 import com.example.demo.core.generic.ExtendedDTO;
+import com.example.demo.domain.user.User;
 
 import java.util.UUID;
 
@@ -12,30 +13,25 @@ public class BlogPostDTO extends ExtendedDTO {
 
     private String category;
 
-    private String userId;
+    private User author;
 
     public BlogPostDTO() {}
-    public BlogPostDTO(String title, String text, String category, String userId) {
-        this.title = title;
-        this.text = text;
-        this.category = category;
-        this.userId = userId;
-    }
-    public BlogPostDTO(UUID id, String title, String text, String category, String userId) {
+
+    public BlogPostDTO(UUID id, String title, String text, String category, User author) {
         super(id);
         this.title = title;
         this.text = text;
         this.category = category;
-        this.userId = userId;
+        this.author = author;
     }
 
     public void setTitle(String title) {this.title = title;}
     public void setText(String text) {this.text = text;}
     public void setCategory(String category) {this.category = category;}
-    public void setUserId(String userId) {this.userId = userId;}
+    public void setAuthor(User author) {this.author = author;}
 
     public String getTitle() {return title;}
     public String getText() {return text;}
     public String getCategory() {return category;}
-    public String getUserId() {return userId;}
+    public User getAuthor() {return author;}
 }

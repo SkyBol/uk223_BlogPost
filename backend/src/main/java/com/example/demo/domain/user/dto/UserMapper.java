@@ -1,6 +1,5 @@
 package com.example.demo.domain.user.dto;
 
-
 import com.example.demo.core.generic.ExtendedMapper;
 import com.example.demo.domain.user.User;
 import org.mapstruct.Mapper;
