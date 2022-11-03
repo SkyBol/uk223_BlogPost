@@ -1,7 +1,11 @@
-import React from 'react';
 import logo from '../../logo1.png';
+import BlogPostService from '../../Services/BlogPostService';
 
 export default function HomePage() {
+  BlogPostService.getAllBlogPosts().then((res) => {
+    console.log(res);
+  })
+
   return (
     <div>
       <img
