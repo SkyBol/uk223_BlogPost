@@ -24,12 +24,12 @@ public class BlogPostController {
         this.blogPostMapper = blogPostMapper;
     }
 
-    @PostMapping({"/", ""})
+    @PostMapping("")
     public ResponseEntity<BlogPostDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
         return ResponseEntity.ok(blogPostMapper.toDTO(service.create(blogPostMapper.fromDTO(blogPostDTO))));
     }
 
-    @GetMapping({"/", ""})
+    @GetMapping("")
     public ResponseEntity<List<BlogPostDTO>> getAll() {
         return ResponseEntity.ok(service.getAll().stream().map(blogPostMapper::toDTO).toList());
     }
