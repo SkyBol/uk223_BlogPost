@@ -2,6 +2,8 @@ package com.example.demo.domain.blogpost;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -36,7 +38,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Override
     public List<BlogPost> getAllWithLimitAfterId(UUID blogId, long limit) {
         log.info("Attempting to find Entries following Id {} with limit {}", blogId, limit);
-        List<BlogPost> foundItems = (List<BlogPost>) repository.findAll();
+        List<BlogPost> foundItems = (List<BlogPost>) repository.findAll(Sort.by("creationDate"), PageRequest.of());
         log.info("Successfully found Entries following Id {} with limit {}", blogId, limit);
         return foundItems;
     }
