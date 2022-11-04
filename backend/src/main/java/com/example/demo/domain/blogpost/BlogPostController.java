@@ -1,9 +1,12 @@
 package com.example.demo.domain.blogpost;
 
 import com.example.demo.domain.blogpost.dto.BlogPostDTO;
+import com.example.demo.domain.blogpost.dto.BlogPostExtendedDTO;
+import com.example.demo.domain.blogpost.dto.BlogPostExtendedMapper;
 import com.example.demo.domain.blogpost.dto.BlogPostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,32 +20,39 @@ public class BlogPostController {
 
     private final BlogPostService service;
     private final BlogPostMapper blogPostMapper;
+    private final BlogPostExtendedMapper blogPostExtendedMapper;
 
     @Autowired
-    public BlogPostController(BlogPostService service, BlogPostMapper blogPostMapper) {
+    public BlogPostController(BlogPostService service, BlogPostMapper blogPostMapper, BlogPostExtendedMapper blogPostExtendedMapper) {
         this.service = service;
         this.blogPostMapper = blogPostMapper;
+        this.blogPostExtendedMapper = blogPostExtendedMapper;
     }
 
-    @PostMapping({"/", ""})
-    public ResponseEntity<BlogPostDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
-        return ResponseEntity.ok(blogPostMapper.toDTO(service.create(blogPostMapper.fromDTO(blogPostDTO))));
+    @PostMapping("")
+    public ResponseEntity<BlogPostExtendedDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
+        return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.create(blogPostMapper.fromDTO(blogPostDTO))));
     }
 
-    @GetMapping({"/", ""})
-    public ResponseEntity<List<BlogPostDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll().stream().map(blogPostMapper::toDTO).toList());
+    @GetMapping("")
+    public ResponseEntity<List<BlogPostExtendedDTO>> getAll() {
+        return ResponseEntity.ok(service.getAll().stream().map(blogPostExtendedMapper::toDTO).toList());
+    }
+
+    @GetMapping({"/{blogId}", ""})
+    public ResponseEntity<List<BlogPostExtendedDTO>> getAllWithLimitAfterId(@PathVariable("blogId") String blogId, @PathParam("limit") long limit) {
+        return ResponseEntity.ok(service.getAllWithLimitAfterId(UUID.fromString(blogId), limit).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
     @GetMapping("/{blogId}")
-    public ResponseEntity<BlogPostDTO> getBlog(@PathVariable("blogId") String blogId) {
-        return ResponseEntity.ok(blogPostMapper.toDTO(service.getById(UUID.fromString(blogId))));
+    public ResponseEntity<BlogPostExtendedDTO> getBlog(@PathVariable("blogId") String blogId) {
+        return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.getById(UUID.fromString(blogId))));
     }
 
     @PutMapping("/{blogId}")
-    public ResponseEntity<BlogPostDTO> updateBlog(@PathVariable("blogId") String blogId,
+    public ResponseEntity<BlogPostExtendedDTO> updateBlog(@PathVariable("blogId") String blogId,
                                                @Valid @RequestBody BlogPostDTO blogPost) {
-        return ResponseEntity.ok(blogPostMapper.toDTO(service.updateById(UUID.fromString(blogId), blogPostMapper.fromDTO(blogPost))));
+        return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.updateById(UUID.fromString(blogId), blogPostMapper.fromDTO(blogPost))));
     }
 
     @DeleteMapping("/{blogId}")
