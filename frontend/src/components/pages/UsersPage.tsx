@@ -16,7 +16,7 @@ const UsersPage = () => {
         <div>
             {users.map((user: User) => {
                 return(
-                    <Typography sx={{ fontSize: "h5.fontSize"}}>{user.firstName}</Typography>
+                    <Typography sx={{ fontSize: "h5.fontSize"}}>First Name: {user.firstName}</Typography>
                 );
             })}
         </div>
