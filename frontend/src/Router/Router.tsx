@@ -7,6 +7,8 @@ import HomePage from '../components/pages/HomePage';
 import UserPage from '../components/pages/UserPage';
 import UsersPage from '../components/pages/UsersPage';
 import authorities from '../config/Authorities';
+import RegisterPage from '../components/pages/RegisterPage';
+import CreatePostPage from '../components/pages/CreatePostPage';
 
 /**
  * Router component renders a route switch with all available pages
@@ -21,6 +23,8 @@ const Router = () => {
     <Routes>
       <Route path={'/'} element={<HomePage />} />
       <Route path={'/login'} element={<LoginPage />} />
+      <Route path={'/register'} element={<RegisterPage />} />
+      <Route path={'/:userId/post'} element={<CreatePostPage />} />
 
       <Route
         path={'/users'}
