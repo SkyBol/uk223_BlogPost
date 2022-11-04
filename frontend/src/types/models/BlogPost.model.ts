@@ -9,4 +9,6 @@ export type BlogPost = {
   text: string;
   category: string;
   author: User;
+  creationTime: Date | undefined;
+  editTime: Date | undefined;
 };

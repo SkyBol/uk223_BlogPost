@@ -26,7 +26,11 @@ export default function HomePage() {
             id={blog.id} 
             title={blog.title} 
             text={blog.text}
-            author={blog.author}/>
+            author={blog.author}
+            category={blog.category}
+            creationTime={blog.creationTime}
+            editTime={blog.editTime}
+          />
         )
       })
     }
