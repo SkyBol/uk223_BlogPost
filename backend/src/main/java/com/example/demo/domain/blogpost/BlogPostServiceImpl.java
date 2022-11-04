@@ -4,6 +4,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -18,6 +20,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Override
     public BlogPost create(BlogPost newEntity) {
         log.info("Attempting to save Entry {}", newEntity);
+        newEntity.setCreationTime(LocalDateTime.now());
         BlogPost post = repository.save(newEntity);
         log.info("Successfully saved Entry {}", post);
         return post;
@@ -58,6 +61,7 @@ public class BlogPostServiceImpl implements BlogPostService {
         post.setAuthor(newEntity.getAuthor());
         post.setText(newEntity.getText());
         post.setTitle(newEntity.getTitle());
+        post.setEditTime(LocalDateTime.now());
         log.info("Attempting to update BlogPost with id {} to {}", blogId, newEntity);
         BlogPost updatedPost = repository.save(post);
         log.info("BlogPost with id {} updated to {}", blogId, updatedPost);

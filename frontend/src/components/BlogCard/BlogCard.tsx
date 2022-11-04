@@ -12,18 +12,14 @@ import { red } from '@mui/material/colors';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import moment from 'moment';
 import * as React from 'react';
-import { User } from '../../types/models/User.model';
+import { BlogPost } from '../../types/models/BlogPost.model';
 import AvatarTWO from '../Assets/isagiyoichi.png';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
-
-type data = {id : string, title: string, text : string, author : User | null | undefined}  
-
-  
-
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
@@ -36,12 +32,15 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function RecipeReviewCard({id, title , text , author }:data ) {
+export default function RecipeReviewCard({id, title , text , author, creationTime, editTime }: BlogPost ) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const subheader = creationTime ? moment(creationTime).format("DD.MM.YYYY hh:mm") : "" 
+    + editTime ? "Edited : " + moment(editTime).format("DD-MM-YYYY hh:mm") : "";
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -55,6 +54,7 @@ export default function RecipeReviewCard({id, title , text , author }:data ) {
           </IconButton>
         }
         title={author ? author.firstName + author.lastName : "anonymous"}
+        subheader={subheader}
       />
       {/*<CardMedia
         component="img"
