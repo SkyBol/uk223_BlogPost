@@ -35,18 +35,22 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
+  @PreAuthorize("hasAuthority('USER_READ')")
   public ResponseEntity<UserDTO> retrieveById(@PathVariable UUID id) {
     User user = userService.findById(id);
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 
+
   @GetMapping("")
+  @PreAuthorize("hasAuthority('USER_READ')")
   public ResponseEntity<List<UserDTO>> retrieveAll() {
     List<User> users = userService.findAll();
     return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
   }
 
   @PostMapping("/register")
+  @PreAuthorize("hasAuthority('USER_CREATE')")
   public ResponseEntity<UserDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
     User user = userService.register(userMapper.fromUserRegisterDTO(userRegisterDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
