@@ -9,14 +9,16 @@ const UserPage = () => {
     const [user, setUser] = useState<User>();
 
     useEffect(() => {
-        UserService.getUser(userId).then((res) => setUser(res.data)).catch((error) => console.log(error));
+        UserService.getUser(userId)
+        .then((res) => setUser(res.data))
+        .catch((error) => console.log(error));
     }, [userId])
 
     return(
         <div>
-            <p>{user?.firstName}</p>
-            <p>{user?.lastName}</p>
-            <p>{user?.email}</p>
+            <p>First Name: {user?.firstName}</p>
+            <p>Last Name: {user?.lastName}</p>
+            <p>E-Mail: {user?.email}</p>
         </div>
     );
 }

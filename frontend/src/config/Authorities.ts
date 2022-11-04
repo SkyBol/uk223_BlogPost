@@ -1,4 +1,13 @@
-enum authorities {}
+enum authorities {
+  USER_CREATE = 'USER_CREATE',
+  USER_READ = 'USER_READ',
+  USER_UPDATE = 'USER_UPDATE',
+  USER_DELETE = 'USER_DELETE',
+  BLOGPOST_CREATE = 'BLOGPOST_CREATE',
+  BLOGPOST_READ = 'BLOGPOST_READ',
+  BLOGPOST_UPDATE = 'BLOGPOST_UPDATE',
+  BLOGPOST_DELETE = 'BLOGPOST_DELETE'
+}
 /*
   add your authorities here. E.g:
 
