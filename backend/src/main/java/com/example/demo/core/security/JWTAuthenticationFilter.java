@@ -1,9 +1,17 @@
 package com.example.demo.core.security;
 
+import com.example.demo.core.generic.ExtendedDTO;
+import com.example.demo.core.generic.ExtendedEntity;
+import com.example.demo.core.generic.ExtendedMapper;
 import com.example.demo.core.security.helpers.AuthorizationSchemas;
 import com.example.demo.core.security.helpers.Credentials;
 import com.example.demo.core.security.helpers.JwtProperties;
+import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserDetailsImpl;
+import com.example.demo.domain.user.dto.UserDTO;
+import com.example.demo.domain.user.dto.UserMapper;
+import com.example.demo.domain.user.dto.UserMapperImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -28,14 +36,16 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
+  private final UserMapper userMapper;
   private final JwtProperties jwtProperties;
   private static final Logger JWT_LOGGER = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
 
   public JWTAuthenticationFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager,
-                                 JwtProperties jwtProperties) {
+                                 JwtProperties jwtProperties, UserMapper userMapper) {
     super(requestMatcher, authenticationManager);
     this.jwtProperties = jwtProperties;
+    this.userMapper = userMapper;
   }
 
   private String generateToken(Authentication authResult) {
@@ -52,9 +62,18 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
                .compact();
   }
 
+  private String generateUserString(Authentication authResult) throws JsonProcessingException {
+    UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authResult.getPrincipal();
+    User user = userDetailsImpl.getUser();
+
+    UserDTO userDTO = userMapper.toDTO(user);
+
+    return new ObjectMapper().writeValueAsString(userDTO);
+  }
+
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-      throws AuthenticationException, IOException {
+      throws AuthenticationException {
     try {
       Credentials credentials = new ObjectMapper().readValue(request.getInputStream(), Credentials.class);
       return getAuthenticationManager().authenticate(
@@ -68,8 +87,10 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-                                          Authentication authResult) {
+                                          Authentication authResult) throws IOException {
     response.addHeader(HttpHeaders.AUTHORIZATION, AuthorizationSchemas.BEARER + " " + generateToken(authResult));
+
+    response.getWriter().write(generateUserString(authResult));
   }
 
   @Override
