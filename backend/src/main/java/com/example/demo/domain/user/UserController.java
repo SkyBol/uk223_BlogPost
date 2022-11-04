@@ -40,7 +40,7 @@ public class UserController {
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 
-  @GetMapping({"", "/"})
+  @GetMapping("")
   public ResponseEntity<List<UserDTO>> retrieveAll() {
     List<User> users = userService.findAll();
     return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);

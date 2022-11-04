@@ -29,13 +29,12 @@ public class BlogPostController {
         this.blogPostExtendedMapper = blogPostExtendedMapper;
     }
 
-    @PreAuthorize("hasAuthority('BLOGPOST_CREATE')")
-    @PostMapping({"/", ""})
+    @PostMapping("")
     public ResponseEntity<BlogPostExtendedDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
         return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.create(blogPostMapper.fromDTO(blogPostDTO))));
     }
 
-    @GetMapping({"/", ""})
+    @GetMapping("")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAll() {
         return ResponseEntity.ok(service.getAll().stream().map(blogPostExtendedMapper::toDTO).toList());
     }
