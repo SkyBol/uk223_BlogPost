@@ -3,7 +3,6 @@ package com.example.demo.domain.blogpost;
 import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

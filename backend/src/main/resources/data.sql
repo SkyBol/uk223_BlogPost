@@ -35,10 +35,10 @@ ON CONFLICT DO NOTHING;
 --assign authorities to roles
 INSERT INTO role_authority(role_id, authority_id)
 VALUES -- User --
-       ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '2ebf301e-6c61-4076-98e3-2a38b31daf86'),
+       ('80b6d9b4-9c7b-4e2f-bdb4-36566c6be3eb', '2ebf301e-6c61-4076-98e3-2a38b31daf86'),
        ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', 'a1055078-1de4-4735-b8a1-aff0cc55bdd8'),
-       ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '0d668f10-7d94-4e8d-b67d-9ef270dbf0f1'),
-       ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '2f0dff88-5e11-4bb4-9e28-4e2f6e71fff9'),
+       ('80b6d9b4-9c7b-4e2f-bdb4-36566c6be3eb', '0d668f10-7d94-4e8d-b67d-9ef270dbf0f1'),
+       ('80b6d9b4-9c7b-4e2f-bdb4-36566c6be3eb', '2f0dff88-5e11-4bb4-9e28-4e2f6e71fff9'),
        ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '37950ab8-6c13-443a-a949-3d19a4d94389'),
        ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '186f449a-4bd7-438b-ada1-67e2666942b5'),
        ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '412399ec-d50c-4e9f-9a82-abd4acf6a333'),
