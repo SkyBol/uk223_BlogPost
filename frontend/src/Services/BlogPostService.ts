@@ -1,9 +1,10 @@
 import api from '../config/Api';
 import { BlogPost } from '../types/models/BlogPost.model';
+import { CreatePost } from '../types/models/CreatePost.model';
 
 const BlogPostService = {
-    createBlogPost: () => {
-        return api.post(`/blog/`);
+    createBlogPost: (blog: CreatePost) => {
+        return api.post(`/blog/create`, blog).catch((error) => console.log(error));
     },
     getAllBlogPosts: () => {
         return api.get(`/blog/`);
