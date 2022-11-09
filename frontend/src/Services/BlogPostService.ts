@@ -8,6 +8,12 @@ const BlogPostService = {
     getAllBlogPosts: () => {
         return api.get(`/blog/`);
     },
+    getAllFromPageWithLimitBlogPosts: (limit : number, page : number) => {
+        return api.get(`/blog?limit=${limit}&page=${page}`);
+    },
+    getAllAfterIdWithLimitBlogPosts: (limit : number, id : string) => {
+        return api.get(`/blog/${id}?limit=${limit}`);
+    },
     getBlogPost: (id : string) => {
         return api.get(`/blog/${id}`);
     },

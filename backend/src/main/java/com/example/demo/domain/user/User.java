@@ -2,6 +2,7 @@ package com.example.demo.domain.user;
 
 import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.role.Role;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;

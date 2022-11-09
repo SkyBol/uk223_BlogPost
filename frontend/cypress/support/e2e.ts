@@ -14,7 +14,15 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+describe('1', () => {
+    beforeEach(() => {});
+
+    afterEach(() => {});
+
+    it('1.1', () => {});
+})
