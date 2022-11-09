@@ -1,6 +1,7 @@
 import { Button, Grid, Paper, TextField } from "@mui/material";
 import { Form, Formik } from "formik";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 import UserService from '../../Services/UserService'
 import { RegisterUser } from "../../types/models/RegisterUser.model";
@@ -22,9 +23,11 @@ const RegisterPage = () => {
     };
 
     const buttonStyle = { margin: '15px 0'};
+    const navigate = useNavigate();
 
     const handleSubmit = (user: RegisterUser) => {
         UserService.registerUser(user).catch((error) => console.log(error));
+        navigate("/");
     };
 
     return(

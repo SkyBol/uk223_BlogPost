@@ -1,7 +1,7 @@
-import { Button, Grid, Paper, TextField } from "@mui/material";
+import { Button, Grid, Paper, TextField, Alert, AlertTitle } from "@mui/material";
 import { Form, Formik } from "formik";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import BlogPostService from "../../Services/BlogPostService";
 import UserService from "../../Services/UserService";
@@ -16,6 +16,7 @@ const validationSchema = Yup.object().shape({
 
 const CreatePostPage = () => {
     const { userId } = useParams();
+    const navigate = useNavigate();
     const [user, setUser] = useState<User>({
         id: '',
         email: '',
@@ -25,7 +26,7 @@ const CreatePostPage = () => {
 
     useEffect(() => {
         UserService.getUser(userId)
-        .then((res) => {setUser(res.data); console.log(res.data)})
+        .then((res) => setUser(res.data))
         .catch((error) => console.log(error));
     }, [userId])
 
@@ -40,10 +41,9 @@ const CreatePostPage = () => {
     };
 
     const handleSubmit = (blog: CreatePost) => {
-        console.log("user");
-        console.log(user);
         blog.author = user;
-        BlogPostService.createBlogPost(blog).then(() => console.log(blog)).catch((error) => console.log(error));
+        BlogPostService.createBlogPost(blog).then(() => alert("Blog posted")).catch((error) => console.log(error));
+        navigate("/");
     };
 
 
