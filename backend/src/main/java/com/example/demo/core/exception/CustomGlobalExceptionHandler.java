@@ -1,22 +1,17 @@
 package com.example.demo.core.exception;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class CustomGlobalExceptionHandler {
+public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   //May be used for further ExceptionHandlers
   //messageSource.getMessage("errors.exception.message", null, LocaleContextHolder.getLocale())
@@ -27,8 +22,20 @@ public class CustomGlobalExceptionHandler {
     this.messageSource = messageSource;
   }
 
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<HashMap<String, String>> customFallthroughHandler(Exception e) {
+    return responseEntity(e);
+  }
 
-  private ResponseEntity<HashMap<String, String>> responseEntity 
+  private ResponseEntity<HashMap<String, String>> responseEntity(Exception e) {
+    HashMap<String, String> map = new HashMap<>();
+
+    map.put("time", LocalDateTime.now().toString());
+    map.put("message", e.getMessage());
+    map.put("stacktrace", Arrays.toString(e.getStackTrace()));
+
+    return ResponseEntity.status(100).body(map);
+  }
 }
 
 

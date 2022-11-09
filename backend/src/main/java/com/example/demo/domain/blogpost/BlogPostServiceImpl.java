@@ -7,6 +7,7 @@ import com.example.demo.domain.user.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.Authentication;
@@ -49,19 +50,19 @@ public class BlogPostServiceImpl implements BlogPostService {
 
     @Override
     public List<BlogPost> getAllWithLimitAfterId(UUID blogId, long limit) {
+        BlogPost post = getById(blogId);
+
         log.info("Attempting to find Entries following Id {} with limit {}", blogId, limit);
-        List<BlogPost> foundItems = (List<BlogPost>) repository.findAllByGreaterThancreationTime();
+        List<BlogPost> foundItems = repository.findByGreaterThanCreationTimeAndWithLimit(post.getCreationTime(), limit);
         log.info("Successfully found Entries following Id {} with limit {}", blogId, limit);
         return foundItems;
     }
 
     @Override
     public List<BlogPost> getAllFromPageWithLimit(long page, long limit) {
-        BlogPost latestPost =
-
-        log.info("Attempting to find Entries following Id {} with limit {}", blogId, limit);
-        List<BlogPost> foundItems = (List<BlogPost>) repository.findAll();
-        log.info("Successfully found Entries following Id {} with limit {}", blogId, limit);
+        log.info("Attempting to find Entries from page {} with limit {}", page, limit);
+        List<BlogPost> foundItems = (List<BlogPost>) repository.findByLimitAndWithOffset(limit, limit * page);
+        log.info("Successfully found Entries from page {} with limit {}", page, limit);
         return foundItems;
     }
 
@@ -71,7 +72,7 @@ public class BlogPostServiceImpl implements BlogPostService {
         Optional<BlogPost> post = repository.findById(blogId);
         if (post.isEmpty()) {
             log.warn("BlogPost with ID {} not found", blogId);
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Blog Post with ID " + blogId + " not found");
         }
         log.info("Found entry with id {}", blogId);
         return post.get();
