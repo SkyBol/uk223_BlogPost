@@ -34,7 +34,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     map.put("message", e.getMessage());
     map.put("stacktrace", Arrays.toString(e.getStackTrace()));
 
-    return ResponseEntity.status(100).body(map);
+    return ResponseEntity.status(400).body(map);
   }
 }
 
