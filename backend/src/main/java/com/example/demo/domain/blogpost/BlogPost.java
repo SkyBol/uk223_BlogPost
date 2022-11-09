@@ -2,8 +2,6 @@ package com.example.demo.domain.blogpost;
 
 import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,8 +26,7 @@ public class BlogPost extends ExtendedEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_author_id")
-    @JsonIgnore
-    private User author;
+    private User user;
 
     @NotNull
     private LocalDateTime creationTime;
@@ -38,12 +35,12 @@ public class BlogPost extends ExtendedEntity {
 
 
     public BlogPost() {}
-    public BlogPost(UUID id, String title, String text, String category, User author, LocalDateTime creationTime, LocalDateTime editTime) {
+    public BlogPost(UUID id, String title, String text, String category, User user, LocalDateTime creationTime, LocalDateTime editTime) {
         super(id);
         this.title = title;
         this.text = text;
         this.category = category;
-        this.author = author;
+        this.user = user;
         this.creationTime = creationTime;
         this.editTime = editTime;
     }
@@ -51,14 +48,14 @@ public class BlogPost extends ExtendedEntity {
     public void setTitle(String title) {this.title = title;}
     public void setText(String text) {this.text = text;}
     public void setCategory(String category) {this.category = category;}
-    public void setAuthor(User author) {this.author = author;}
+    public void setUser(User author) {this.user = author;}
     public void setCreationTime(LocalDateTime creationTime) {this.creationTime = creationTime;}
     public void setEditTime(LocalDateTime editTime) {this.editTime = editTime;}
 
     public String getTitle() {return title;}
     public String getText() {return text;}
     public String getCategory() {return category;}
-    public User getAuthor() {return author;}
+    public User getUser() {return user;}
     public LocalDateTime getCreationTime() {return creationTime;}
     public LocalDateTime getEditTime() {return editTime;}
 
@@ -68,7 +65,7 @@ public class BlogPost extends ExtendedEntity {
                 "title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", category='" + category + '\'' +
-                ", author=" + author +
+                ", author=" + user +
                 '}';
     }
 }

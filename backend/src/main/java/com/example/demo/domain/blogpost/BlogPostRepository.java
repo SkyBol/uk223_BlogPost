@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface BlogPostRepository extends CrudRepository<BlogPost, UUID> {
-    List<BlogPost> findAllByGreaterThanEqualCreationTime(LocalDateTime creationTime);
+    List<BlogPost> findAllByGreaterThancreationTime(LocalDateTime creationTime);
 }

@@ -10,6 +10,8 @@ public interface BlogPostService {
 
     List<BlogPost> getAllWithLimitAfterId(UUID blogId, long limit);
 
+    List<BlogPost> getAllFromPageWithLimit(long page, long limit);
+
     BlogPost getById(UUID blogId);
 
     BlogPost updateById(UUID blogId, BlogPost newEntity);

@@ -31,4 +31,9 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     return save(user);
   }
+
+  @Override
+  public User getByEmail(String email) {
+    return ((UserRepository) repository).findByEmail(email).orElseThrow();
+  }
 }
