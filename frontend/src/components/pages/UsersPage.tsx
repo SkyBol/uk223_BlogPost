@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import UserService from "../../Services/UserService";
 import { User } from '../../types/models/User.model';
+import Header from "../Header/Header";
 
 
 const UsersPage = () => {
@@ -14,9 +15,10 @@ const UsersPage = () => {
 
     return(
         <div>
+            <Header/>
             {users.map((user: User) => {
                 return(
-                    <Typography sx={{ fontSize: "h5.fontSize"}}>First Name: {user.firstName}</Typography>
+                    <Typography key={user.id} sx={{ fontSize: "h5.fontSize"}}>First Name: {user.firstName}</Typography>
                 );
             })}
         </div>

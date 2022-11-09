@@ -3,7 +3,7 @@ import logo from '../../logo1.png';
 import BlogPostService from '../../Services/BlogPostService';
 import { BlogPost } from '../../types/models/BlogPost.model';
 import RecipeReviewCard from '../BlogCard/BlogCard';
-import ResponsiveAppBar from '../Header/ResponsiveAppBar';
+import Header from '../Header/Header';
 
 
 export default function HomePage() {
@@ -18,7 +18,7 @@ export default function HomePage() {
 
   return (
     <div>
-    <ResponsiveAppBar/>
+    <Header/>
     {
       blogs.map((blog) => {
         return (
