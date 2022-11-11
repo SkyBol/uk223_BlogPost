@@ -6,6 +6,7 @@ import com.example.demo.domain.blogpost.dto.BlogPostExtendedMapper;
 import com.example.demo.domain.blogpost.dto.BlogPostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,7 @@ public class BlogPostController {
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('BLOGPOST_CREATE')")
     public ResponseEntity<BlogPostExtendedDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
-        return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.expandedSave(blogPostMapper.fromDTO(blogPostDTO))));
+        return new ResponseEntity<>(blogPostExtendedMapper.toDTO(service.expandedSave(blogPostMapper.fromDTO(blogPostDTO))), HttpStatus.CREATED);
     }
 
     /**
@@ -61,11 +62,11 @@ public class BlogPostController {
     }
 
     /**
-     * This Function gets a limited amount of BlogPosts, which have been created after a given BlogPost
+     * This Function gets a limited amount of BlogPosts, which have been created before a given BlogPost
      *
      * @param blogId The ID of the given BlogPost
      * @param limit The amount of BlogPosts to get
-     * @return a limited amount of BlogPosts, created after a given BlogPost
+     * @return a limited amount of BlogPosts, created before a given BlogPost
      */
     @GetMapping("/{blogId}/getNext")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAllWithLimitAfterId(@PathVariable("blogId") String blogId, @PathParam("limit") long limit) {
