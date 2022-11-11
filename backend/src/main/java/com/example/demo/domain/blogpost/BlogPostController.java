@@ -74,6 +74,9 @@ public class BlogPostController {
     }
 
     /**
+     *
+     * This functions retrieves all the BlogPosts made by the user
+     *
      * @param userId The Author of the Post
      * @return
      */
@@ -96,6 +99,6 @@ public class BlogPostController {
     @DeleteMapping("/{blogId}")
     @PreAuthorize("hasAuthority('BLOGPOST_DELETE')")
     public ResponseEntity<Void> deleteById(@PathVariable("blogId") String blogId) {
-        return ResponseEntity.ok(service.deleteById(UUID.fromString(blogId)));
+        return new ResponseEntity<>(service.deleteById(UUID.fromString(blogId)), HttpStatus.NO_CONTENT);
     }
 }
