@@ -34,7 +34,7 @@ const UserService = {
     return api.post('/user/register', user).then((res) => {
       return res.data
     });
-  }
+  },
 };
 
 export default UserService;

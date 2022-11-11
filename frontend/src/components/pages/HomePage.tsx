@@ -24,10 +24,6 @@ export default function HomePage() {
       <Header/>
       <Typography sx={{ml: 10, fontSize: 'h2.fontSize'}}>Blogs</Typography>
       
-      <Button onClick={() => setPage(page - 1)}>{"<"}</Button>
-      {page}
-      <Button onClick={() => setPage(page + 1)}>{">"}</Button>
-      
       {
         Array.isArray(blogs) && blogs.map((blog) => {
           return (
@@ -39,7 +35,9 @@ export default function HomePage() {
           )
         })
       }
-      
+      <Button onClick={() => setPage(page - 1)}>{"<"}</Button>
+      {page}
+      <Button onClick={() => setPage(page + 1)}>{">"}</Button>
     </div>
   );
 }
