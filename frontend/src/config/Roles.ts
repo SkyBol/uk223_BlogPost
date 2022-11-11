@@ -1,4 +1,7 @@
-enum roles {}
+enum roles {
+  ADMIN = "ADMIN",
+  USER = "USER"
+}
 /*
   add your roles here. E.g:
   

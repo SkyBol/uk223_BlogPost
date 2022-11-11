@@ -3,6 +3,8 @@ package com.example.demo.core.security;
 import com.example.demo.core.security.helpers.JwtProperties;
 import com.example.demo.domain.user.UserService;
 import java.util.List;
+
+import com.example.demo.domain.user.dto.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,32 +30,32 @@ public class WebSecurityConfig {
   private final UserService userService;
   private final PasswordEncoder passwordEncoder;
   private final JwtProperties jwtProperties;
+  private final UserMapper userMapper;
 
   @Autowired
-  public WebSecurityConfig(UserService userService, PasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
+  public WebSecurityConfig(UserService userService, PasswordEncoder passwordEncoder, JwtProperties jwtProperties, UserMapper userMapper) {
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
     this.jwtProperties = jwtProperties;
+    this.userMapper = userMapper;
   }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.authorizeRequests(requests -> requests.antMatchers(HttpMethod.POST, "/user/login", "/user/register")
-                                                      .permitAll()
-                                                      .anyRequest()
-                                                      .authenticated())
+    return http.authorizeRequests(requests -> requests
+                  .antMatchers(HttpMethod.POST, "/user/login", "/user/register").permitAll()
+                  .antMatchers(HttpMethod.GET, "/blog").permitAll()
+                  .antMatchers("/v3/api-docs", "/v3/api-docs/swagger-config", "/swagger-ui/*").permitAll()
+                  .anyRequest().authenticated())
                .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/user/login", "POST"),
-                   authenticationManager(), jwtProperties), UsernamePasswordAuthenticationFilter.class)
+                   authenticationManager(), jwtProperties, userMapper), UsernamePasswordAuthenticationFilter.class)
                .addFilterAfter(new JWTAuthorizationFilter(userService, jwtProperties),
                    UsernamePasswordAuthenticationFilter.class)
-               .sessionManagement()
-               .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                .and()
-               .cors()
-               .configurationSource(corsConfigurationSource())
+               .cors().configurationSource(corsConfigurationSource())
                .and()
-               .csrf()
-               .disable()
+               .csrf().disable()
                .formLogin()
                .and()
                .build();

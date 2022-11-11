@@ -2,6 +2,7 @@ package com.example.demo.domain.user;
 
 import com.example.demo.core.generic.ExtendedEntity;
 import com.example.demo.domain.role.Role;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -89,5 +90,15 @@ public class User extends ExtendedEntity {
   public User setRoles(Set<Role> roles) {
     this.roles = roles;
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", roles=" + roles +
+            '}';
   }
 }

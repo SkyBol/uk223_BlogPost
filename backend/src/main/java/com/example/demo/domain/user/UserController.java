@@ -35,12 +35,15 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
+  @PreAuthorize("hasAuthority('USER_READ') && @userPermissionEvaluator.isUserAccessable(authentication.principal.user, #id)")
   public ResponseEntity<UserDTO> retrieveById(@PathVariable UUID id) {
     User user = userService.findById(id);
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 
-  @GetMapping({"", "/"})
+
+  @GetMapping("")
+  @PreAuthorize("hasAuthority('USER_READ_ALL')")
   public ResponseEntity<List<UserDTO>> retrieveAll() {
     List<User> users = userService.findAll();
     return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
@@ -53,8 +56,7 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  @PreAuthorize(
-      "hasAuthority('USER_MODIFY') && @userPermissionEvaluator.isUserAboveAge(authentication.principal.user,18)")
+  @PreAuthorize("hasAuthority('USER_UPDATE')")
   public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
     User user = userService.updateById(id, userMapper.fromDTO(userDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);

@@ -1,12 +1,7 @@
 import {
-  Paper,
-  Grid,
-  TextField,
-  Button,
-  Typography,
-  Link,
+  Button, Grid, Link, Paper, TextField, Typography
 } from '@mui/material';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
@@ -69,6 +64,7 @@ const Login = () => {
           {(props) => (
             <Form onSubmit={props.handleSubmit}>
               <TextField
+                data-cy="login-email"
                 label='email'
                 id='email'
                 placeholder='Enter username'
@@ -84,6 +80,7 @@ const Login = () => {
               )}
 
               <TextField
+                data-cy="login-password"
                 id='password'
                 label='password'
                 placeholder='Enter password'
@@ -99,6 +96,7 @@ const Login = () => {
               )}
 
               <Button
+                data-cy="login-button"
                 type='submit'
                 color='primary'
                 variant='contained'
