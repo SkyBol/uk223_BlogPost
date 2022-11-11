@@ -15,7 +15,7 @@ public class UserPermissionEvaluator {
     @Autowired
     private UserService service;
 
-    public boolean isPostForUser(User user, String accessingUserId) {
+    public boolean isUserAccessable(User user, String accessingUserId) {
         // If user is Admin, is automatically granted
         if (user.getRoles().stream().anyMatch((Role role) -> "ADMIN".equals(role.getName()))) {
             return true;

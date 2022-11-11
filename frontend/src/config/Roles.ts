@@ -1,7 +1,6 @@
 enum roles {
   ADMIN = "ADMIN",
-  USER = "USER",
-  VERIFIED = "VERIFIED"
+  USER = "USER"
 }
 /*
   add your roles here. E.g:

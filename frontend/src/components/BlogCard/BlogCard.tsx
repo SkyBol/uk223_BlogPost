@@ -25,8 +25,6 @@ const BlogCard = ({blogPost}: Props) => {
   const subheader = blogPost.creationTime ? moment(blogPost.creationTime).format("DD.MM.YYYY hh:mm") : "" 
     + blogPost.editTime ? "Edited : " + moment(blogPost.editTime).format("DD-MM-YYYY hh:mm") : "";
 
-    console.log(blogPost)
-
   return (
     <Card sx={{ maxWidth: '35%', mb: 10, ml: 10 }}>
       <CardHeader

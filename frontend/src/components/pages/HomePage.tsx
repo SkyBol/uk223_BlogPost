@@ -10,7 +10,7 @@ export default function HomePage() {
 
   useEffect(() => {
     BlogPostService.getAllBlogPosts().then((res) => {
-    setBlogs(res.data);
+      setBlogs(res.data);
     })
   }, []);
 
@@ -19,7 +19,7 @@ export default function HomePage() {
     <Header/>
     <Typography sx={{ml: 10, fontSize: 'h2.fontSize'}}>Blogs</Typography>
     {
-      blogs.map((blog) => {
+      Array.isArray(blogs) && blogs.map((blog) => {
         return (
           <BlogCard
             key={blog.id}

@@ -1,6 +1,7 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserService from "../../Services/UserService";
 import { User } from '../../types/models/User.model';
 import Header from "../Header/Header";
@@ -8,6 +9,7 @@ import Header from "../Header/Header";
 
 const UsersPage = () => {
     const [users, setUsers] = useState<User[]>([]);
+    const navigate = useNavigate();
     const textStyle = {
         fontSize: 24
     }
@@ -47,6 +49,9 @@ const UsersPage = () => {
                         <CardActions>
                             <Button variant="outlined" color="error" onClick={() => deleteUser(user.id)}>
                                 Delete
+                            </Button>
+                            <Button variant="outlined" color="success" onClick={() => navigate(`/${user.id}/edit`)}>
+                                Edit
                             </Button>
                         </CardActions>
                     </Card>

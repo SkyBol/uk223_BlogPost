@@ -1,6 +1,6 @@
-import { Grid, Paper, TextField, Button } from "@mui/material";
-import { Formik, Form } from "formik";
-import React, { useEffect, useState } from "react";
+import { Button, Grid, Paper, TextField } from "@mui/material";
+import { Form, Formik } from "formik";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import UserService from "../../Services/UserService";
@@ -23,7 +23,6 @@ const EditUserPage = () => {
     };
     const buttonStyle = { margin: '15px 0'};
     const navigate = useNavigate();
-    //const { user } = useContext(ActiveUserContext);
     const { userId } = useParams();
     const [ user, setUser ] = useState<User>({
         id: '',
@@ -46,8 +45,8 @@ const EditUserPage = () => {
 
     const handleSubmit = (user: User) => {
         UserService.updateUser(user)
-        .then(() => {alert("User updated"); navigate('/')})
-        .catch((error) => console.log(error));
+            .then(() => {navigate('/')})
+            .catch((error) => console.log(error));
     };
 
     return (
