@@ -55,10 +55,18 @@ public class BlogPostServiceImpl extends ExtendedServiceImpl<BlogPost> implement
     }
 
     @Override
+    public List<BlogPost> findAllByAuthorId(UUID authorId) {
+        log.info("Attempting to find all Entries from Author with Id {}", authorId);
+        List<BlogPost> foundItems = repository.findAllByAuthorId(authorId);
+        log.info("Successfully found all Entries from Author with Id {}", authorId);
+        return foundItems;
+    }
+
     public BlogPost expandedUpdateById(UUID id, BlogPost updatedPost) {
         BlogPost toUpdate = findById(id);
         updatedPost.setUser(toUpdate.getUser());
         updatedPost.setCreationTime(toUpdate.getCreationTime());
+
 
         updatedPost.setEditTime(LocalDateTime.now());
 
