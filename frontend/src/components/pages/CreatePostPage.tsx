@@ -69,6 +69,7 @@ const CreatePostPage = () => {
                         {(props) => (
                             <Form onSubmit={props.handleSubmit}>
                                 <TextField
+                                    data-cy={"createPost-title"}
                                     label='Title'
                                     id='title'
                                     placeholder="Enter title"
@@ -81,6 +82,7 @@ const CreatePostPage = () => {
                                 />
 
                                 <TextField
+                                    data-cy={"createPost-text"}
                                     label='Text'
                                     id='text'
                                     placeholder="Enter text"
@@ -95,6 +97,7 @@ const CreatePostPage = () => {
                                 />
 
                                 <TextField
+                                    data-cy={"createPost-category"}
                                     label='Category'
                                     id='category'
                                     placeholder="Enter category"
@@ -107,6 +110,7 @@ const CreatePostPage = () => {
                                 />
 
                                 <Button
+                                data-cy={"createPost-submit"}
                                 type="submit"
                                 color="primary"
                                 variant="contained"

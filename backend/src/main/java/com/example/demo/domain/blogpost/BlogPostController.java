@@ -31,27 +31,51 @@ public class BlogPostController {
         this.blogPostExtendedMapper = blogPostExtendedMapper;
     }
 
+    /**
+     * Creates a new BlogPost Entry in the DataBase
+     * @param blogPostDTO The Post to create
+     * @return a BlogPostExtendedDTO with the data of the created object
+     */
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('BLOGPOST_CREATE')")
     public ResponseEntity<BlogPostExtendedDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
         return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.expandedSave(blogPostMapper.fromDTO(blogPostDTO))));
     }
 
+    /**
+     * @return all BlogPosts
+     */
     @GetMapping("")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAll() {
         return ResponseEntity.ok(service.findAll().stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
+    /**
+     * @param page The Page to get
+     * @param limit The amount of BlogPosts to get
+     * @return a limited amount of BlogPosts in the given Range
+     */
     @GetMapping("/page")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAllWithPageAndLimit(@PathParam("page") int page, @PathParam("limit") int limit) {
         return ResponseEntity.ok(service.findAll(Pageable.ofSize(limit).withPage(page)).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
+    /**
+     * This Function gets a limited amount of BlogPosts, which have been created after a given BlogPost
+     *
+     * @param blogId The ID of the given BlogPost
+     * @param limit The amount of BlogPosts to get
+     * @return a limited amount of BlogPosts, created after a given BlogPost
+     */
     @GetMapping("/{blogId}/getNext")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAllWithLimitAfterId(@PathVariable("blogId") String blogId, @PathParam("limit") long limit) {
         return ResponseEntity.ok(service.findAllWithLimitAfterId(UUID.fromString(blogId), limit).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
+    /**
+     * @param userId The Author of the Post
+     * @return
+     */
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<BlogPostExtendedDTO>> findAllByUserId(@PathVariable("userId") String userId) {
         return ResponseEntity.ok(service.findAllByUserId(UUID.fromString(userId)).stream().map(blogPostExtendedMapper::toDTO).toList());

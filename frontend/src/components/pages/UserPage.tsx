@@ -5,8 +5,8 @@ import BlogPostService from "../../Services/BlogPostService";
 import UserService from "../../Services/UserService";
 import { BlogPost } from "../../types/models/BlogPost.model";
 import { User } from '../../types/models/User.model';
-import BlogCard from "../BlogCard/BlogCard";
-import Header from "../Header/Header";
+import BlogCard from "../molecules/BlogCard/BlogCard";
+import Header from "../molecules/Header/Header";
 
 
 const UserPage = () => {
@@ -14,6 +14,10 @@ const UserPage = () => {
     const [user, setUser] = useState<User>();
     const [blogs, setBlogs] = useState<BlogPost[]>([]);
     const navigate = useNavigate();
+
+    const removePostFromBlogs = (id : string) => {
+        setBlogs(blogs.filter((blogElement) => blogElement.id !== id));
+      }
 
     useEffect(() => {
         UserService.getUser(userId)
@@ -35,6 +39,7 @@ const UserPage = () => {
                 blogs.map((blog) => {
                     return(
                         <BlogCard
+                            removePostFromBlogs={removePostFromBlogs}
                             key={blog.id}
                             blogPost={blog}
                         />

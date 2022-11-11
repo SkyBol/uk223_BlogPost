@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../Services/UserService";
 import { User } from '../../types/models/User.model';
-import Header from "../Header/Header";
+import Header from "../molecules/Header/Header";
 
 
 const UsersPage = () => {

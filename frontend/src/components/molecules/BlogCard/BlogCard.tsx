@@ -9,16 +9,17 @@ import Typography from '@mui/material/Typography';
 import moment from 'moment';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ActiveUserContext from '../../Contexts/ActiveUserContext';
-import BlogPostService from '../../Services/BlogPostService';
-import { BlogPost } from '../../types/models/BlogPost.model';
+import ActiveUserContext from '../../../Contexts/ActiveUserContext';
+import BlogPostService from '../../../Services/BlogPostService';
+import { BlogPost } from '../../../types/models/BlogPost.model';
 
 type Props = {
   blogPost: BlogPost,
+  removePostFromBlogs : Function,
 };
 
 
-const BlogCard = ({blogPost}: Props) => {
+const BlogCard = ({blogPost, removePostFromBlogs}: Props) => {
   const navigate = useNavigate();
   const { user } = useContext(ActiveUserContext);
 
@@ -26,7 +27,7 @@ const BlogCard = ({blogPost}: Props) => {
     + blogPost.editTime ? "Edited : " + moment(blogPost.editTime).format("DD-MM-YYYY hh:mm") : "";
 
   return (
-    <Card sx={{ maxWidth: '35%', mb: 10, ml: 10 }}>
+    <Card sx={{ maxWidth: '35%', mb: 10, ml: 10 }} data-cy={blogPost.title} >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">OG</Avatar>
@@ -36,7 +37,7 @@ const BlogCard = ({blogPost}: Props) => {
       />
       <CardContent>
         <Typography variant="h6">
-           {blogPost.title}
+           {blogPost.title + (blogPost.category !== "" ? ` - ${blogPost.category}` : "")}
            <hr />
         </Typography>
         <Typography variant="body2">
@@ -47,8 +48,8 @@ const BlogCard = ({blogPost}: Props) => {
         {
           user?.id === blogPost.user.id ?
             <>
-              <Button variant="outlined" color="error" onClick={() => {BlogPostService.deleteBlogPost(blogPost.id); window.location.reload();}} > Delete </Button>
-              <Button variant="outlined" color="success" onClick={() => navigate(`/${ user?.id }/${ blogPost.id }/edit`) } > Edit </Button>
+              <Button data-cy={blogPost.title + "-delete"} variant="outlined" color="error" onClick={() => {BlogPostService.deleteBlogPost(blogPost.id); removePostFromBlogs(blogPost.id);}} > Delete </Button>
+              <Button data-cy={blogPost.title + "-edit"} variant="outlined" color="success" onClick={() => navigate(`/${ user?.id }/${ blogPost.id }/edit`) } > Edit </Button>
             </> : <></>
         }
         
