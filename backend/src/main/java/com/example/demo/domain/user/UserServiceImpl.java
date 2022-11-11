@@ -6,6 +6,8 @@ import com.example.demo.domain.role.RoleRepository;
 import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,7 @@ import java.util.UUID;
 
 @Log4j2
 @Service
+@Log4j2
 public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserService {
 
   private final PasswordEncoder passwordEncoder;
@@ -54,5 +57,10 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
   @Override
   public User getByEmail(String email) {
     return ((UserRepository) repository).findByEmail(email).orElseThrow();
+  }
+
+  public User getCurrentUser() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    return getByEmail(auth.getName());
   }
 }
