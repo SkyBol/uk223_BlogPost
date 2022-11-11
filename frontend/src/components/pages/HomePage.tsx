@@ -1,10 +1,10 @@
+import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import logo from '../../logo1.png';
 import BlogPostService from '../../Services/BlogPostService';
 import { BlogPost } from '../../types/models/BlogPost.model';
-import RecipeReviewCard from '../BlogCard/BlogCard';
-import ResponsiveAppBar from '../Header/ResponsiveAppBar';
-
+import BlogCard from '../BlogCard/BlogCard';
+import Header from '../Header/Header';
 
 export default function HomePage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([])
@@ -14,22 +14,18 @@ export default function HomePage() {
     setBlogs(res.data);
     })
   }, []);
-  
 
   return (
     <div>
-    <ResponsiveAppBar/>
+    <Header/>
+    <Typography sx={{ml: 10, fontSize: 'h2.fontSize'}}>Blogs</Typography>
     {
       blogs.map((blog) => {
         return (
-          <RecipeReviewCard 
-            id={blog.id} 
-            title={blog.title} 
-            text={blog.text}
-            author={blog.author}
-            category={blog.category}
-            creationTime={blog.creationTime}
-            editTime={blog.editTime}
+          <BlogCard
+            key={blog.id}
+            blogPost={blog}
+            isHomePage={true}
           />
         )
       })
