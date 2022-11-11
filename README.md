@@ -31,4 +31,13 @@ The Postman Collection and Enviroment needs to be inported into Postman from the
 
 # Documentation
 
-### 
+## Domain-Model
+![Domain Model](./res/img/DomainModel.png)
+## Use-Case
+#### Diagram
+![Use Case Diagram](./res/img/UseCaseDiagram.png)
+#### Description
+![Use Case Description](./res/img/UseCaseDescription.png)
+
+## Sequenz-Diagram
+![Sequnz-Diagram](./res/img/SequenzDiagram.png)
