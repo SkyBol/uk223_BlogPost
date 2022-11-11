@@ -7,4 +7,6 @@ public interface UserService extends UserDetailsService, ExtendedService<User> {
   User register(User user);
 
   User getByEmail(String email);
+
+  User getCurrentUser();
 }
