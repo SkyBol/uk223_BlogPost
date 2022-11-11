@@ -47,6 +47,7 @@
     "start": "run-script-os",
     "start:darwin": "react-scripts --openssl-legacy-provider start",
     "start:default": "react-scripts start",
+    "start:safe": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
