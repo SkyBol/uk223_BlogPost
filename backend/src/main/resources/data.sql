@@ -1,8 +1,8 @@
 --USERS
 insert into users(id, email,first_name,last_name, password)
-values ('ba804cb9-fa14-42a5-afaf-be488742fc54', 'admin@example.com', 'James','Bond', '1234' ),
-       ('0d8fa44c-54fd-4cd0-ace9-2a7da57992de', 'user@example.com', 'Tyler','Durden', '1234'),
-       ('0d8fa44c-54fd-4cd0-ace9-2a7da57992de', 'uuser@ex.com', 'Unk','Unauthorized', '1234')
+values ('ba804cb9-fa14-42a5-afaf-be488742fc54', 'admin@example.com', 'James','Bond', '$2a$10$PpmKkb7FhsuuPxX.059zpuAKLe0oyCV.aea6gZTN/Mn5GFg268PoO' ),
+       ('0d8fa44c-54fd-4cd0-ace9-2a7da57992de', 'user@example.com', 'Tyler','Durden', '$2a$10$PpmKkb7FhsuuPxX.059zpuAKLe0oyCV.aea6gZTN/Mn5GFg268PoO'),
+       ('0d8fa44c-54fd-4cd0-ace9-2a7da57992de', 'uuser@ex.com', 'Unk','Unauthorized', '$2a$10$PpmKkb7FhsuuPxX.059zpuAKLe0oyCV.aea6gZTN/Mn5GFg268PoO')
 ON CONFLICT DO NOTHING;
 
 
