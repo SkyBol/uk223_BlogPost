@@ -1,40 +1,34 @@
-# Prerequisites
-This project requires you to use the Java JDK Version 18. \
-Please select the appropriate JDK in the IntelliJ project settings.
+# Install
 
-You'll need a Docker container running **PostgreSQL** on port 5432. 
-If you have not already, you can set up such a docker container using the command:
-
+### Database
+You need a postres-database running on localhost:5432. With the default settings, the username and password alike have to be 'postgres'. However, this can be changed in the application.properties file under 'uk223_BlogPost\backend\src\main\resources\application.properties'. 
+If you have Docker Desktop installed, you can create a new postgres container with the default password with the following command:
 `docker run --name postgres-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres`
 
-The username and password are assumed to be both "postgres". 
-You can change the username and password that hibernate uses in application.properties.
+### Backend
+Next open the backend folder in IntelliJ and start the backend. In the console it should inform you, when the backend is started.
+
+### Frontend
+At last, open the frontend folder in Visual Studio Code () and start the frontend in the Console with the commands `yarn`, followed by `yarn start`. For this you work you need to have npm as well as yarn installed.
+
+**Important Note for Mac Users**: Should any problems occur whilst trying to start the frontend, try running `yarn start:safe`. This is due to an error which occured during development with the m2-chip in one of our devices. 
+
+# Default Users
+
+| Role  | Username          | Password |
+|-------|-------------------|----------|
+| Admin | admin@example.com | 1234     |
+| User  | user@example.com  | 1234     |
 
 
+# Testing
 
+### Cypress
+When the whole application-stack is running, you can run all cypress tests in a second  Visual Studio Code Terminal with `yarn cypress run`. More experienced Users can also use cypress with `yarn cypress open` and continue from there.
 
-# Setup
-Open the applicaiton in IntelliJ. you should be able to execute the application after IntelliJ has finished indexing all the files and building the gradle project.
-Build & Run the application (e.g. by runnung the bootRun Gradle task).
+### Postman
+The Postman Collection and Enviroment needs to be inported into Postman from the 'res'-Folder. Once imported, it can be run as it is in a Runner-Window. 
 
-the application should start and run now. You should see a message similar to this at the end of a long console log:\
-`2021-09-14 14:31:15.056  INFO 27988 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 4.122 seconds (JVM running for 4.991)`
+# Documentation
 
-
-If you've set up the project correctly you should be able to access the endpoint `http://localhost:8080/` after logging in with the following user:
-
-
-
-
-# Common Issues & Fixes
-* Restart the PostGreSQL container & check the container is running
-*	Confirm connection to the DB (e.g. in DBeaver)
-*	Restart IntelliJ & your Spring Boot application
-
-
-# Hints
-
-* You can add mock data to your database on startup using an SQL script named `data.sql` placed in the resources folder
-* You can execute statements at startup by adding them to `AppStartupRunner.run()`
-
-
+### 
