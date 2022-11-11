@@ -1,6 +1,18 @@
 import loginData from '../fixtures/login.json';
 
+let LOCAL_STORAGE_MEMORY: { [key: string]: string } = {};
+
 Cypress.Commands.addAll({
+    saveLocalStorage: () =>
+        Object.keys(localStorage).forEach(
+            (key: string) => (LOCAL_STORAGE_MEMORY[key] = localStorage[key])
+    ),
+
+    restoreLocalStorage: () =>
+        Object.keys(LOCAL_STORAGE_MEMORY).forEach((key: string) =>
+            localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key])
+    ),
+
     login: (email: string = loginData.email, password: string = loginData.password) => {
         cy.visit("/login");
     

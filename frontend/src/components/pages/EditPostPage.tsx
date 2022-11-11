@@ -93,6 +93,7 @@ return (
                         {(props) => (
                             <Form onSubmit={props.handleSubmit}>
                                 <TextField
+                                    data-cy={"editPost-title"}
                                     label='Title'
                                     id='title'
                                     placeholder="Enter title"
@@ -108,6 +109,7 @@ return (
                                 )}
 
                                 <TextField
+                                    data-cy={"editPost-text"}
                                     label='Text'
                                     id='text'
                                     placeholder="Enter text"
@@ -122,6 +124,7 @@ return (
                                 />
 
                                 <TextField
+                                    data-cy={"editPost-category"}
                                     label='Category'
                                     id='category'
                                     placeholder="Enter category"
@@ -134,10 +137,12 @@ return (
                                 />
 
                                 <Button
-                                type="submit"
-                                color="primary"
-                                variant="contained"
-                                style={buttonStyle}>
+                                    data-cy={"editPost-submit"}
+                                    type="submit"
+                                    color="primary"
+                                    variant="contained"
+                                    style={buttonStyle}
+                                >
                                     Submit
                                 </Button>
                             </Form>
