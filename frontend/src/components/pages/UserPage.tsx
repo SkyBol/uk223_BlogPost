@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BlogPostService from "../../Services/BlogPostService";
 import UserService from "../../Services/UserService";
@@ -22,7 +22,7 @@ const UserPage = () => {
     }, [userId])
 
     useEffect(() => {
-        BlogPostService.getAllByAuthor(userId).then((res) => setBlogs(res.data)).catch((error) => console.log(error));
+        BlogPostService.getAllByUser(userId).then((res) => setBlogs(res.data)).catch((error) => console.log(error));
     }, [userId]);
 
     return(
@@ -37,7 +37,6 @@ const UserPage = () => {
                         <BlogCard
                             key={blog.id}
                             blogPost={blog}
-                            isHomePage={false}
                         />
                     );
                 })

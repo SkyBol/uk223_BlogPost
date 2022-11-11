@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-@Log4j2
 @Service
 @Log4j2
 public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserService {

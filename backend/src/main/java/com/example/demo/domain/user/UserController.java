@@ -35,7 +35,7 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasAuthority('USER_READ')")
+  @PreAuthorize("hasAuthority('USER_READ') && @userPermission")
   public ResponseEntity<UserDTO> retrieveById(@PathVariable UUID id) {
     User user = userService.findById(id);
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class UserController {
 
 
   @GetMapping("")
-  @PreAuthorize("hasAuthority('USER_READ')")
+  @PreAuthorize("hasAuthority('USER_READ_ALL')")
   public ResponseEntity<List<UserDTO>> retrieveAll() {
     List<User> users = userService.findAll();
     return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);

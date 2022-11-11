@@ -8,7 +8,7 @@ export type BlogPost = {
   title: string;
   text: string;
   category: string;
-  author: User;
+  user: User;
   creationTime: Date | undefined;
   editTime: Date | undefined;
 };

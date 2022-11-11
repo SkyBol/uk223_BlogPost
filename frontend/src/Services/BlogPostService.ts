@@ -15,8 +15,8 @@ const BlogPostService = {
     getAllAfterIdWithLimitBlogPosts: (limit : number, id : string) => {
         return api.get(`/blog/${id}?limit=${limit}`);
     },
-    getAllByAuthor: (authorId : string|undefined) => {
-        return api.get(`/blog/author/${authorId}`);
+    getAllByUser: (userId : string|undefined) => {
+        return api.get(`/blog/user/${userId}`);
     },
     getBlogPost: (id : string|undefined) => {
         return api.get(`/blog/${id}`);
@@ -25,7 +25,7 @@ const BlogPostService = {
         return api.put(`/blog/${id}`, {...blogPost});
     },
     deleteBlogPost: (id : string) => {
-        return api.post(`/blog/${id}`);
+        return api.delete(`/blog/${id}`);
     },
 }
 

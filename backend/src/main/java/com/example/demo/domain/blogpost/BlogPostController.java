@@ -52,9 +52,9 @@ public class BlogPostController {
         return ResponseEntity.ok(service.findAllWithLimitAfterId(UUID.fromString(blogId), limit).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
-    @GetMapping("/author/{authorId}")
-    public ResponseEntity<List<BlogPostExtendedDTO>> findAllByAuthorId(@PathVariable("authorId") String authorId) {
-        return ResponseEntity.ok(service.findAllByAuthorId(UUID.fromString(authorId)).stream().map(blogPostExtendedMapper::toDTO).toList());
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BlogPostExtendedDTO>> findAllByUserId(@PathVariable("userId") String userId) {
+        return ResponseEntity.ok(service.findAllByUserId(UUID.fromString(userId)).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
     @GetMapping("/{blogId}")

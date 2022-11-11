@@ -9,9 +9,9 @@ import { CreatePost } from "../../types/models/CreatePost.model";
 import { User } from "../../types/models/User.model";
 
 const validationSchema = Yup.object().shape({
-    title: Yup.string().required().max(100),
-    text: Yup.string().required().max(1000),
-    category: Yup.string().required().max(50),
+    title: Yup.string().max(100),
+    text: Yup.string().max(1000),
+    category: Yup.string().max(50),
 });
 
 const CreatePostPage = () => {
@@ -40,10 +40,14 @@ const CreatePostPage = () => {
         margin: '20px 0',
     };
 
+
     const handleSubmit = (blog: CreatePost) => {
-        blog.author = user;
-        BlogPostService.createBlogPost(blog).then(() => alert("Blog posted")).catch((error) => console.log(error));
-        navigate("/");
+        blog.user = user;
+        blog.text = blog.text ? blog.text : "";
+        blog.category = blog.category ? blog.category : "";
+        BlogPostService.createBlogPost(blog)
+            .then(() => navigate("/"))
+            .catch((error) => console.log(error));
     };
 
 
@@ -58,7 +62,7 @@ const CreatePostPage = () => {
                         title: '',
                         text: '',
                         category: '',
-                        author: user,
+                        user: user,
                     }}
                     onSubmit={handleSubmit}
                     validationSchema={validationSchema}>
@@ -75,9 +79,6 @@ const CreatePostPage = () => {
                                     onBlur={props.handleBlur}
                                     value={props.values.title}
                                 />
-                                {props.errors.title && (
-                                    <div id="feedback">{props.errors.title}</div>
-                                )}
 
                                 <TextField
                                     label='Text'
@@ -92,9 +93,6 @@ const CreatePostPage = () => {
                                     onBlur={props.handleBlur}
                                     value={props.values.text}
                                 />
-                                {props.errors.text && (
-                                    <div id="feedback">{props.errors.text}</div>
-                                )}
 
                                 <TextField
                                     label='Category'
@@ -107,9 +105,6 @@ const CreatePostPage = () => {
                                     onBlur={props.handleBlur}
                                     value={props.values.category}
                                 />
-                                {props.errors.category && (
-                                    <div id="feedback">{props.errors.category}</div>
-                                )}
 
                                 <Button
                                 type="submit"

@@ -17,6 +17,7 @@ ON CONFLICT DO NOTHING;
 INSERT INTO authority(id, name)
 VALUES ('2ebf301e-6c61-4076-98e3-2a38b31daf86', 'USER_CREATE'),
        ('a1055078-1de4-4735-b8a1-aff0cc55bdd8', 'USER_READ'),
+       ('c1e08709-37c9-461d-8c58-87951ee02168', 'USER_READ_ALL'),
        ('0d668f10-7d94-4e8d-b67d-9ef270dbf0f1', 'USER_UPDATE'),
        ('2f0dff88-5e11-4bb4-9e28-4e2f6e71fff9', 'USER_DELETE'),
        ('37950ab8-6c13-443a-a949-3d19a4d94389', 'BLOGPOST_CREATE'),
@@ -42,5 +43,7 @@ VALUES -- User --
        ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '37950ab8-6c13-443a-a949-3d19a4d94389'),
        ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '186f449a-4bd7-438b-ada1-67e2666942b5'),
        ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '412399ec-d50c-4e9f-9a82-abd4acf6a333'),
-       ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '02219556-9aee-4973-a1fb-61dbbe05a3c9')
+       ('d29e709c-0ff1-4f4c-a7ef-09f656c390f1', '02219556-9aee-4973-a1fb-61dbbe05a3c9'),
+       -- Admin --
+       ('ba804cb9-fa14-42a5-afaf-be488742fc54', 'c1e08709-37c9-461d-8c58-87951ee02168')
 ON CONFLICT DO NOTHING;

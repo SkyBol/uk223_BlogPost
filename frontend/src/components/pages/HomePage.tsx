@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import logo from '../../logo1.png';
 import BlogPostService from '../../Services/BlogPostService';
 import { BlogPost } from '../../types/models/BlogPost.model';
 import BlogCard from '../BlogCard/BlogCard';
@@ -25,18 +24,10 @@ export default function HomePage() {
           <BlogCard
             key={blog.id}
             blogPost={blog}
-            isHomePage={true}
           />
         )
       })
     }
-      <img
-        src={logo}
-        style={{ filter: 'invert(100%)' }}
-        className='App-logo'
-        alt='logo'
-      />
-      <p>PlaceHolder</p>
     </div>
   );
 }

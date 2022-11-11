@@ -9,7 +9,7 @@ public interface BlogPostService extends ExtendedService<BlogPost> {
     BlogPost expandedSave(BlogPost post);
 
 
-    List<BlogPost> findAllByAuthorId(UUID authorId);
+    List<BlogPost> findAllByUserId(UUID authorId);
 
     /**
      * This Function gets a limited amount of Posts, which have been created before a given Post

@@ -1,6 +1,6 @@
-import { Grid, Paper, TextField, Button } from "@mui/material";
-import { Formik, Form } from "formik";
-import React, { useEffect, useState } from "react";
+import { Button, Grid, Paper, TextField } from "@mui/material";
+import { Form, Formik } from "formik";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from 'yup';
 import BlogPostService from "../../Services/BlogPostService";
@@ -11,8 +11,8 @@ import { User } from "../../types/models/User.model";
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().max(100),
-    text: Yup.string().required().max(1000),
-    category: Yup.string().required().max(50),
+    text: Yup.string().max(1000),
+    category: Yup.string().max(50),
 });
 
 
@@ -32,7 +32,7 @@ const EditPostPage = () => {
         title: '',
         text: '',
         category: '',
-        author: {id: '',
+        user: {id: '',
         firstName: '',
         lastName: '',
         email: '',
@@ -66,14 +66,17 @@ const EditPostPage = () => {
     title: blogPost.title,
     text: blogPost.text,
     category: blogPost.category,
-    author: blogPost.author,
+    user: blogPost.user,
     creationTime: blogPost.creationTime,
     editTime: blogPost.editTime,
     }
 
     const handleSubmit = (blog: BlogPost) => {
-        blog.author = user;
-        BlogPostService.updateBlogPost(blog.id, blog).then(() => {alert("Blog Post updated"); navigate('/')})
+        blog.user = user;
+        blog.text = blog.text ? blog.text : "";
+        blog.category = blog.category ? blog.category : "";
+        BlogPostService.updateBlogPost(blog.id, blog)
+            .then(() => {navigate('/')});
     };
 
 return (
@@ -117,9 +120,6 @@ return (
                                     onBlur={props.handleBlur}
                                     value={props.values.text}
                                 />
-                                {props.errors.text && (
-                                    <div id="feedback">{props.errors.text}</div>
-                                )}
 
                                 <TextField
                                     label='Category'
@@ -132,9 +132,6 @@ return (
                                     onBlur={props.handleBlur}
                                     value={props.values.category}
                                 />
-                                {props.errors.category && (
-                                    <div id="feedback">{props.errors.category}</div>
-                                )}
 
                                 <Button
                                 type="submit"

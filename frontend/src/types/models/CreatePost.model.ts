@@ -4,5 +4,5 @@ export type CreatePost= {
     title: string;
     text: string;
     category: string;
-    author: User;
+    user: User;
 };
