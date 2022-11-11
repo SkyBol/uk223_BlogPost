@@ -57,7 +57,7 @@ public class BlogPostServiceImpl extends ExtendedServiceImpl<BlogPost> implement
     @Override
     public List<BlogPost> findAllByUserId(UUID userId) {
         log.info("Attempting to find all Entries from Author with Id {}", userId);
-        List<BlogPost> foundItems = ((BlogPostRepository) repository).findAllByAuthorId(userId);
+        List<BlogPost> foundItems = ((BlogPostRepository) repository).findAllByUserId(userId);
         log.info("Successfully found all Entries from Author with Id {}", userId);
         return foundItems;
     }

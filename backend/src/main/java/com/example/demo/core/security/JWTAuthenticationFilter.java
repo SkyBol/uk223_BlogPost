@@ -1,8 +1,5 @@
 package com.example.demo.core.security;
 
-import com.example.demo.core.generic.ExtendedDTO;
-import com.example.demo.core.generic.ExtendedEntity;
-import com.example.demo.core.generic.ExtendedMapper;
 import com.example.demo.core.security.helpers.AuthorizationSchemas;
 import com.example.demo.core.security.helpers.Credentials;
 import com.example.demo.core.security.helpers.JwtProperties;
@@ -10,7 +7,6 @@ import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserDetailsImpl;
 import com.example.demo.domain.user.dto.UserDTO;
 import com.example.demo.domain.user.dto.UserMapper;
-import com.example.demo.domain.user.dto.UserMapperImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
