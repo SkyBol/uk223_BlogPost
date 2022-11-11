@@ -50,7 +50,6 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  @PreAuthorize("hasAuthority('USER_CREATE')")
   public ResponseEntity<UserDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
     User user = userService.register(userMapper.fromUserRegisterDTO(userRegisterDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);

@@ -1,4 +1,4 @@
-import { Role } from "./Role.model";
+
 
 export type RegisterUser = {
     firstName: string;
