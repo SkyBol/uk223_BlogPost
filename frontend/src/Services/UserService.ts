@@ -1,4 +1,5 @@
 import api from '../config/Api';
+import { RegisterUser } from '../types/models/RegisterUser.model';
 import { User } from '../types/models/User.model';
 
 const UserService = {
@@ -29,6 +30,11 @@ const UserService = {
     const { data } = await api.get<User>(`/user/${userID}`);
     return data;
   },
+  registerUser: (user: RegisterUser) => {
+    return api.post('/user/register', user).then((res) => {
+      return res.data
+    });
+  }
 };
 
 export default UserService;
