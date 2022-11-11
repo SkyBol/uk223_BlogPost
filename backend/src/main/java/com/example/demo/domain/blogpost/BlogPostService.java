@@ -11,6 +11,7 @@ public interface BlogPostService {
     List<BlogPost> getAllWithLimitAfterId(UUID blogId, long limit);
 
     List<BlogPost> getAllFromPageWithLimit(long page, long limit);
+    List<BlogPost> findAllByAuthorId(UUID authorId);
 
     BlogPost getById(UUID blogId);
 

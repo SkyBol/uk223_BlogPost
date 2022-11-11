@@ -72,6 +72,14 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
+    public List<BlogPost> findAllByAuthorId(UUID authorId) {
+        log.info("Attempting to find all Entries from Author with Id {}", authorId);
+        List<BlogPost> foundItems = repository.findAllByAuthorId(authorId);
+        log.info("Successfully found all Entries from Author with Id {}", authorId);
+        return foundItems;
+    }
+
+    @Override
     @Transactional
     public BlogPost getById(UUID blogId) {
         log.info("Attempting to find entry with id {}", blogId);

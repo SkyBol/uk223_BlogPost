@@ -14,4 +14,7 @@ public interface BlogPostRepository extends CrudRepository<BlogPost, UUID> {
 
     @Query(value = "SELECT * FROM blog_post ORDER BY creation_time LIMIT ?1 OFFSET ?2", nativeQuery = true)
     List<BlogPost> findByLimitAndWithOffset(long limit, long offset);
+
+    @Query(nativeQuery = true, value = "SELECT bp.* FROM blog_post bp WHERE bp.user_author_id = :authorId")
+    List<BlogPost> findAllByAuthorId(UUID authorId);
 }

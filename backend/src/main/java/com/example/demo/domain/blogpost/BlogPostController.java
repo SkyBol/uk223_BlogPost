@@ -30,7 +30,7 @@ public class BlogPostController {
         this.blogPostExtendedMapper = blogPostExtendedMapper;
     }
 
-    @PostMapping("")
+    @PostMapping("/create")
     @PreAuthorize("hasAuthority('BLOGPOST_CREATE')")
     public ResponseEntity<BlogPostExtendedDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
         return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.create(blogPostMapper.fromDTO(blogPostDTO))));
@@ -49,6 +49,11 @@ public class BlogPostController {
     @GetMapping("/{blogId}/getNext")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAllWithLimitAfterId(@PathVariable("blogId") String blogId, @PathParam("limit") long limit) {
         return ResponseEntity.ok(service.getAllWithLimitAfterId(UUID.fromString(blogId), limit).stream().map(blogPostExtendedMapper::toDTO).toList());
+    }
+
+    @GetMapping("/author/{authorId}")
+    public ResponseEntity<List<BlogPostExtendedDTO>> findAllByAuthorId(@PathVariable("authorId") String authorId) {
+        return ResponseEntity.ok(service.findAllByAuthorId(UUID.fromString(authorId)).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
     @GetMapping("/{blogId}")
