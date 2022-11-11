@@ -21,7 +21,7 @@ type Props = {
 
 const BlogCard = ({blogPost, removePostFromBlogs}: Props) => {
   const navigate = useNavigate();
-  const { user } = useContext(ActiveUserContext);
+  const { user, checkRole } = useContext(ActiveUserContext);
 
   const subheader = blogPost.creationTime ? moment(blogPost.creationTime).format("DD.MM.YYYY hh:mm") : "" 
     + blogPost.editTime ? "Edited : " + moment(blogPost.editTime).format("DD-MM-YYYY hh:mm") : "";
@@ -46,7 +46,7 @@ const BlogCard = ({blogPost, removePostFromBlogs}: Props) => {
       </CardContent>
       <CardActions>
         {
-          user?.id === blogPost.user.id ?
+          checkRole("ADMIN") || user?.id === blogPost.user.id ?
             <>
               <Button data-cy={blogPost.title + "-delete"} variant="outlined" color="error" onClick={() => {BlogPostService.deleteBlogPost(blogPost.id); removePostFromBlogs(blogPost.id);}} > Delete </Button>
               <Button data-cy={blogPost.title + "-edit"} variant="outlined" color="success" onClick={() => navigate(`/${ user?.id }/${ blogPost.id }/edit`) } > Edit </Button>

@@ -4,6 +4,7 @@ import com.example.demo.domain.blogpost.dto.BlogPostDTO;
 import com.example.demo.domain.blogpost.dto.BlogPostExtendedDTO;
 import com.example.demo.domain.blogpost.dto.BlogPostExtendedMapper;
 import com.example.demo.domain.blogpost.dto.BlogPostMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -39,14 +40,16 @@ public class BlogPostController {
      */
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('BLOGPOST_CREATE')")
+    @Operation(description = "This Method creates a new BlogPost")
     public ResponseEntity<BlogPostExtendedDTO> createBlog(@Valid @RequestBody BlogPostDTO blogPostDTO) {
-        return new ResponseEntity<>(blogPostExtendedMapper.toDTO(service.expandedSave(blogPostMapper.fromDTO(blogPostDTO))), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(blogPostExtendedMapper.toDTO(service.expandedSave(blogPostMapper.fromDTO(blogPostDTO))));
     }
 
     /**
      * @return all BlogPosts
      */
     @GetMapping("")
+    @Operation(description = "This Method returns all BlogPosts")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAll() {
         return ResponseEntity.ok(service.findAll().stream().map(blogPostExtendedMapper::toDTO).toList());
     }
@@ -57,18 +60,21 @@ public class BlogPostController {
      * @return a limited amount of BlogPosts in the given Range
      */
     @GetMapping("/page")
+    @Operation(description = "This Method returns the BlogPosts from a given Page with a given amount (limit)")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAllWithPageAndLimit(@PathParam("page") int page, @PathParam("limit") int limit) {
         return ResponseEntity.ok(service.findAll(Pageable.ofSize(limit).withPage(page)).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
     /**
-     * This Function gets a limited amount of BlogPosts, which have been created before a given BlogPost
+     * This Function gets a limited amount of BlogPosts, which have been created before a given BlogPost.
+     * Doesn't include/return the given BlogPost
      *
      * @param blogId The ID of the given BlogPost
      * @param limit The amount of BlogPosts to get
      * @return a limited amount of BlogPosts, created before a given BlogPost
      */
     @GetMapping("/{blogId}/getNext")
+    @Operation(description = "This Method returns the BlogPosts with a given amount (limit), starting from a given BlogPost-ID")
     public ResponseEntity<List<BlogPostExtendedDTO>> getAllWithLimitAfterId(@PathVariable("blogId") String blogId, @PathParam("limit") long limit) {
         return ResponseEntity.ok(service.findAllWithLimitAfterId(UUID.fromString(blogId), limit).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
@@ -78,27 +84,44 @@ public class BlogPostController {
      * This functions retrieves all the BlogPosts made by the user
      *
      * @param userId The Author of the Post
-     * @return
+     * @return all BlogPosts which belong to a User
      */
     @GetMapping("/user/{userId}")
+    @Operation(description = "This Method returns the BlogPosts which belong to a User")
     public ResponseEntity<List<BlogPostExtendedDTO>> findAllByUserId(@PathVariable("userId") String userId) {
         return ResponseEntity.ok(service.findAllByUserId(UUID.fromString(userId)).stream().map(blogPostExtendedMapper::toDTO).toList());
     }
 
+    /**
+     * @param blogId The ID of a BlogPost
+     * @return the whole BlogPost
+     */
     @GetMapping("/{blogId}")
+    @Operation(description = "This Method returns a specified BlogPost")
     public ResponseEntity<BlogPostExtendedDTO> getBlog(@PathVariable("blogId") String blogId) {
         return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.findById(UUID.fromString(blogId))));
     }
 
+    /**
+     * @param blogId The ID of a blogPost
+     * @param blogPost The BlogPost, to which it should be updated
+     * @return The updated BlogPost
+     */
     @PutMapping("/{blogId}")
     @PreAuthorize("hasAuthority('BLOGPOST_UPDATE') && @blogPostPermissionEvaluator.isPostForUser(authentication.principal.user, #blogId)")
+    @Operation(description = "This Method updates a BlogPost")
     public ResponseEntity<BlogPostExtendedDTO> updateBlog(@PathVariable("blogId") String blogId, @Valid @RequestBody BlogPostDTO blogPost) {
         return ResponseEntity.ok(blogPostExtendedMapper.toDTO(service.expandedUpdateById(UUID.fromString(blogId), blogPostMapper.fromDTO(blogPost))));
     }
 
+    /**
+     * @param blogId The BlogPost to delete
+     * @return void
+     */
     @DeleteMapping("/{blogId}")
-    @PreAuthorize("hasAuthority('BLOGPOST_DELETE')")
+    @PreAuthorize("hasAuthority('BLOGPOST_DELETE') && @blogPostPermissionEvaluator.isPostForUser(authentication.principal.user, #blogId)")
+    @Operation(description = "This Method deletes a BlogPost")
     public ResponseEntity<Void> deleteById(@PathVariable("blogId") String blogId) {
-        return new ResponseEntity<>(service.deleteById(UUID.fromString(blogId)), HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.deleteById(UUID.fromString(blogId)));
     }
 }
