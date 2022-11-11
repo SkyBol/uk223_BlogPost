@@ -23,6 +23,7 @@ const Router = () => {
     <Routes>
       <Route path={'/'} element={<HomePage />} />
       <Route path={'/login'} element={<LoginPage />} />
+      <Route path={'/register'} element={<RegisterPage />} />
 
       <Route
         path={'/:userId/post'}
@@ -34,12 +35,6 @@ const Router = () => {
         path={'/:userId/:blogPostId/edit'}
         element={
           <PrivateRoute authorities={[{id: "", name: authorities.BLOGPOST_UPDATE}]} element={<EditPostPage/>} />
-        }
-      />
-      <Route
-        path={'/register'}
-        element={
-          <PrivateRoute authorities={[{id: "", name: authorities.USER_CREATE}]} element={<RegisterPage />} />
         }
       />
       <Route
